@@ -1,8 +1,8 @@
 # terraform-alicloud-cloud-sso
 
-Terraform module which creates Cloud SSO resources on Alibaba Cloud, including Directory, User, Group, AccessConfiguration.
+本 Module 用于创建阿里云云产品 Cloud SSO 的所有资源，包括目录 Directory，用户 User，用户组 Group，以及访问配置 AccessConfiguration。
 
-## Usage
+## 用法
 
 ```terraform
 data "alicloud_cloud_sso_directories" "default" {}
@@ -94,17 +94,16 @@ module "cloud_sso" {
 }
 ```
 
-## Cloud SSO Directory
+## 目录
 
-The cloud sso directory id is the precondition of other cloud sso resources. This module support to get an existing folder by 
-specifying the following parameters:
+目录是所有Cloud SSO其他资源的前提条件。本Module支持通过如下参数指定一个存量的目录ID：
 
 ```terraform
 create_directory = false
 directory_id     = "rd-xxxxxxx"
 ```
 
-Or, create a new directory by specifying the following parameters:
+通过，也可以通过如下的参数新建一个目录：
 
 ```terraform
 create_directory          = true
@@ -121,16 +120,16 @@ saml_identity_provider_configuration = [
 scim_synchronization_status = "Enabled"
 ```
 
-## Cloud SSO Group
+## 用户组
 
-This module support to get an existing group by specifying the following parameters:
+本Module支持通过如下的参数指定一个存量的用户组：
 
 ```terraform
 create_group = false
 group_id     = "g-xxxxxxx"
 ```
 
-Or, create a new group by specifying the following parameters:
+同时，可以通过如下的参数新建一个用户组：
 
 ```terraform
 create_group = true
@@ -138,9 +137,9 @@ group_name   = "ALIYUN-appnamedev"
 description  = "A new cloud sso group"
 ```
 
-## Cloud SSO User
+## 用户
 
-This module support to specify a list existing cloud sso users by specifying the following parameters:
+可以通过如下的参数指定一组存量的Cloud SSO用户，用于后续加入到用户组中：
 
 ```terraform
 create_user = false
@@ -154,18 +153,7 @@ users = [
 ]
 ```
 
-Or, using datasource [alicloud_cloud_sso_users](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/data-sources/cloud_sso_users) to fetch automatically:
-```terraform
-data "alicloud_cloud_sso_users" "this" {
-   directory_id = "rd-xxxx"
-   name_regex   = "^my-User"
-}
-
-create_user = false
-users       = data.alicloud_cloud_sso_users.this.users
-```
-
-Also, this module supports to create a list of users:
+同时，可以通过指定如下的参数来新建一组用户：
 
 ```terraform
 create_user = true
@@ -185,15 +173,15 @@ users = [
 ]
 ```
 
-If you want to add users into the group, please specify the parameter add_user_to_group:
+如果，想要将指定的用户或者新建的用户加入到用户组中，可以指定如下的参数：
 
 ```terraform
 add_user_to_group = true
 ```
 
-## Cloud SSO Access Configurations
+## 访问配置
 
-This module supports creating a list of access configurations by specifying the following parameters:
+指定如下的参数，实现一组访问配置的新建：
 
 ```terraform
 create_access_configuration = true
@@ -228,41 +216,35 @@ access_configurations = [
 ]
 ```
 
-## Examples
+## 示例
 
 - [Complete](https://github.com/terraform-alicloud-modules/terraform-alicloud-cloud-sso/tree/master/examples/complete)
 
-## Contributing
+## 贡献
 
 Report issues/questions/feature requests on in the [issues](https://github.com/terraform-alicloud-modules/terraform-alicloud-cloud-sso/issues/new) section.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
+## Terraform 版本
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
 | <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.145.0 |
 
-## Providers
+## 文档
 
-| Name | Version |
-|------|---------|
-| <a name="provider_alicloud"></a> [alicloud](#provider\_alicloud) | >= 1.145.0
+本Module已经被发布到 Terraform Registry 上了，详细请看[文档](https://registry.terraform.io/modules/terraform-alicloud-modules/cloud-sso/alicloud/latest)
 
-## Docs
-
-This module has been published in terraform registry. See [Docs](https://registry.terraform.io/modules/terraform-alicloud-modules/cloud-sso/alicloud/latest)
-
-## Authors
+## 作者
 -------
 Created and maintained by Alibaba Cloud Terraform Team(terraform@alibabacloud.com)
 
-## License
+## 协议
 ----
 MIT License. See LICENSE for full details.
 
-## Reference
+## 参考
 ---------
 * [Terraform-Provider-Alicloud Github](https://github.com/aliyun/terraform-provider-alicloud)
 * [Terraform-Provider-Alicloud Release](https://releases.hashicorp.com/terraform-provider-alicloud/)
