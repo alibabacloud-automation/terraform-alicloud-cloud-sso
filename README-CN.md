@@ -237,15 +237,15 @@ Report issues/questions/feature requests on in the [issues](https://github.com/t
 本Module已经被发布到 Terraform Registry 上了，详细请看[文档](https://registry.terraform.io/modules/terraform-alicloud-modules/cloud-sso/alicloud/latest)
 
 ## 作者
--------
+
 Created and maintained by Alibaba Cloud Terraform Team(terraform@alibabacloud.com)
 
 ## 协议
-----
+
 MIT License. See LICENSE for full details.
 
 ## 参考
----------
+
 * [Terraform-Provider-Alicloud Github](https://github.com/aliyun/terraform-provider-alicloud)
 * [Terraform-Provider-Alicloud Release](https://releases.hashicorp.com/terraform-provider-alicloud/)
 * [Terraform-Provider-Alicloud Docs](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs)

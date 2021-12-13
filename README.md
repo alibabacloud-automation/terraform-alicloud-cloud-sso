@@ -244,26 +244,20 @@ Report issues/questions/feature requests on in the [issues](https://github.com/t
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
 | <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.145.0 |
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_alicloud"></a> [alicloud](#provider\_alicloud) | >= 1.145.0
-
 ## Docs
 
 This module has been published in terraform registry. See [Docs](https://registry.terraform.io/modules/terraform-alicloud-modules/cloud-sso/alicloud/latest)
 
 ## Authors
--------
+
 Created and maintained by Alibaba Cloud Terraform Team(terraform@alibabacloud.com)
 
 ## License
-----
+
 MIT License. See LICENSE for full details.
 
 ## Reference
----------
+
 * [Terraform-Provider-Alicloud Github](https://github.com/aliyun/terraform-provider-alicloud)
 * [Terraform-Provider-Alicloud Release](https://releases.hashicorp.com/terraform-provider-alicloud/)
 * [Terraform-Provider-Alicloud Docs](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs)
