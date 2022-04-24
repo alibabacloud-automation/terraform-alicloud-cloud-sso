@@ -46,9 +46,9 @@ resource "alicloud_cloud_sso_user_attachment" "this" {
 # Create several cloud sso access configurations
 resource "alicloud_cloud_sso_access_configuration" "this" {
   count                     = var.create_access_configuration ? length(var.access_configurations) : 0
+  directory_id              = local.this_directory_id
   access_configuration_name = lookup(var.access_configurations[count.index], "access_configuration_name", )
   description               = lookup(var.access_configurations[count.index], "description", )
-  directory_id              = local.this_directory_id
   dynamic "permission_policies" {
     for_each = lookup(var.access_configurations[count.index], "permission_policies", )
     content {
@@ -61,5 +61,3 @@ resource "alicloud_cloud_sso_access_configuration" "this" {
   session_duration                 = lookup(var.access_configurations[count.index], "session_duration", )
   force_remove_permission_policies = lookup(var.access_configurations[count.index], "force_remove_permission_policies", true)
 }
-
-

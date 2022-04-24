@@ -24,6 +24,7 @@ $ terraform apply -var-file=tfvars/01-update.tfvars
 Also, you can add more variables files in the folder `tfvars`.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 ## Requirements
 
 | Name | Version |

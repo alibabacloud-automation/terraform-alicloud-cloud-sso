@@ -237,6 +237,7 @@ access_configurations = [
 Report issues/questions/feature requests on in the [issues](https://github.com/terraform-alicloud-modules/terraform-alicloud-cloud-sso/issues/new) section.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 ## Requirements
 
 | Name | Version |
@@ -261,4 +262,3 @@ MIT License. See LICENSE for full details.
 * [Terraform-Provider-Alicloud Github](https://github.com/aliyun/terraform-provider-alicloud)
 * [Terraform-Provider-Alicloud Release](https://releases.hashicorp.com/terraform-provider-alicloud/)
 * [Terraform-Provider-Alicloud Docs](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs)
-
