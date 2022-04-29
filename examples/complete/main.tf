@@ -1,68 +1,104 @@
 provider "alicloud" {
-  region     = "cn-shanghai"
+  region = "cn-shanghai"
 }
 
-data "alicloud_cloud_sso_directories" "default" {}
 // create a new directory
-module "directory" {
-  source                               = "../../"
-  create_directory                     = length(data.alicloud_cloud_sso_directories.default.ids) > 0 ? false : true
+module "cloud_sso_directory" {
+  source = "../../"
+
+  #alicloud_cloud_sso_directory
+  create_directory = true
+
   directory_name                       = var.directory_name
   mfa_authentication_status            = var.mfa_authentication_status
-  saml_identity_provider_configuration = var.saml_identity_provider_configuration
   scim_synchronization_status          = var.scim_synchronization_status
+  saml_identity_provider_configuration = var.saml_identity_provider_configuration
 
-  directory_id = length(data.alicloud_cloud_sso_directories.default.ids) > 0 ? data.alicloud_cloud_sso_directories.default.ids.0 : ""
+  #alicloud_cloud_sso_group
+  create_group = false
 
-  create_group                = false
-  create_user                 = false
-  add_user_to_group           = false
+  #alicloud_cloud_sso_user
+  create_user = false
+
+  #alicloud_cloud_sso_user_attachment
+  add_user_to_group = false
+
+  #alicloud_cloud_sso_access_configuration
   create_access_configuration = false
+
 }
 
 // create a new group using existing directory
-module "group" {
-  source           = "../../"
-  create_directory = false
-  directory_id     = module.directory.directory_id
+module "cloud_sso_group" {
+  source = "../../"
 
+  #alicloud_cloud_sso_directory
+  create_directory = false
+
+  #alicloud_cloud_sso_group
   create_group = true
+
+  directory_id = module.cloud_sso_directory.directory_id
   group_name   = var.group_name
   description  = var.description
 
-  create_user                 = false
-  add_user_to_group           = false
+  #alicloud_cloud_sso_user
+  create_user = false
+
+  #alicloud_cloud_sso_user_attachment
+  add_user_to_group = false
+
+  #alicloud_cloud_sso_access_configuration
   create_access_configuration = false
+
 }
 
-// create a list new users using existing group and add them into group
-module "user" {
-  source           = "../../"
+// create a list new users and add users into existing group
+module "cloud_sso_user" {
+  source = "../../"
+
+  #alicloud_cloud_sso_directory
   create_directory = false
-  directory_id     = module.directory.directory_id
 
+  #alicloud_cloud_sso_group
   create_group = false
-  group_id     = module.group.group_id
 
-  create_user       = true
-  users             = var.users
+  #alicloud_cloud_sso_user
+  create_user = true
+
+  directory_id = module.cloud_sso_directory.directory_id
+  users        = var.users
+
+  #alicloud_cloud_sso_user_attachment
   add_user_to_group = true
 
+  group_id = module.cloud_sso_group.group_id
+
+  #alicloud_cloud_sso_access_configuration
   create_access_configuration = false
+
 }
 
 // create a list new access configurations
-module "access-configurations" {
-  source           = "../../"
+module "cloud_sso_access_configuration" {
+  source = "../../"
+
+  #alicloud_cloud_sso_directory
   create_directory = false
-  directory_id     = module.directory.directory_id
 
+  #alicloud_cloud_sso_group
   create_group = false
-  group_id     = module.group.group_id
 
-  create_user       = false
+  #alicloud_cloud_sso_user
+  create_user = false
+
+  #alicloud_cloud_sso_user_attachment
   add_user_to_group = false
 
+  #alicloud_cloud_sso_access_configuration
   create_access_configuration = true
-  access_configurations       = var.access_configurations
+
+  directory_id          = module.cloud_sso_directory.directory_id
+  access_configurations = var.access_configurations
+
 }

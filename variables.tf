@@ -2,9 +2,9 @@
 # Cloud SSO Directory
 #####################
 variable "create_directory" {
-  description = "Controls if cloud sso directory should be created (it affects almost all resources)"
+  description = "Controls if cloud sso directory should be created (it affects almost all resources)."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "directory_id" {
@@ -18,11 +18,13 @@ variable "directory_name" {
   type        = string
   default     = ""
 }
+
 variable "mfa_authentication_status" {
   description = "The mfa authentication status. Valid values: Enabled or Disabled. Default to Enabled."
   type        = string
   default     = "Enabled"
 }
+
 variable "scim_synchronization_status" {
   description = "The scim synchronization status. Valid values: Enabled or Disabled. Default to Disabled."
   type        = string
@@ -32,15 +34,16 @@ variable "scim_synchronization_status" {
 variable "saml_identity_provider_configuration" {
   description = "The saml identity provider configuration. See: https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/cloud_sso_directory#saml_identity_provider_configuration"
   type        = list(map(string))
-  default     = null
+  default     = []
 }
+
 #####################
 # Cloud SSO Group
 #####################
 variable "create_group" {
-  description = "Controls if cloud sso user group should be created"
+  description = "Controls if cloud sso user group should be created."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "group_id" {
@@ -54,6 +57,7 @@ variable "group_name" {
   type        = string
   default     = ""
 }
+
 variable "description" {
   description = "The description of a new cloud sso user group."
   type        = string
@@ -75,11 +79,10 @@ variable "add_user_to_group" {
   default     = false
 }
 
-
 variable "users" {
-  description = "List of maps of cloud sso access configuration permission policies. See https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/cloud_sso_access_configuration#permission_policies"
+  description = "List of maps of cloud sso users"
   type        = list(map(string))
-  default     = null
+  default     = []
 }
 
 #####################
@@ -103,6 +106,3 @@ variable "access_configurations" {
   }))
   default = []
 }
-
-
-
