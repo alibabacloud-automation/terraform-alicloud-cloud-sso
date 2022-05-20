@@ -52,7 +52,7 @@ module "cloud_sso_group" {
   create_access_configuration = false
 
 }
-
+test
 // create a list new users and add users into existing group
 module "cloud_sso_user" {
   source = "../../"
@@ -78,7 +78,7 @@ module "cloud_sso_user" {
   create_access_configuration = false
 
 }
-
+dfsafa
 // create a list new access configurations
 module "cloud_sso_access_configuration" {
   source = "../../"
