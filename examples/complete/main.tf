@@ -2,33 +2,15 @@ provider "alicloud" {
   region = "cn-shanghai"
 }
 
-// create a new directory
-module "cloud_sso_directory" {
-  source = "../../"
-
-  #alicloud_cloud_sso_directory
-  create_directory = true
-
-  directory_name                       = var.directory_name
-  mfa_authentication_status            = var.mfa_authentication_status
-  scim_synchronization_status          = var.scim_synchronization_status
-  saml_identity_provider_configuration = var.saml_identity_provider_configuration
-
-  #alicloud_cloud_sso_group
-  create_group = false
-
-  #alicloud_cloud_sso_user
-  create_user = false
-
-  #alicloud_cloud_sso_user_attachment
-  add_user_to_group = false
-
-  #alicloud_cloud_sso_access_configuration
-  create_access_configuration = false
+data "alicloud_cloud_sso_directories" "default" {
 
 }
 
-// create a new group using existing directory
+locals {
+  directory_id = try(data.alicloud_cloud_sso_directories.default.directories[0].id, "")
+}
+
+# create a new group using existing directory
 module "cloud_sso_group" {
   source = "../../"
 
@@ -38,7 +20,7 @@ module "cloud_sso_group" {
   #alicloud_cloud_sso_group
   create_group = true
 
-  directory_id = module.cloud_sso_directory.directory_id
+  directory_id = local.directory_id
   group_name   = var.group_name
   description  = var.description
 
@@ -53,7 +35,7 @@ module "cloud_sso_group" {
 
 }
 
-// create a list new users and add users into existing group
+# create a list new users and add users into existing group
 module "cloud_sso_user" {
   source = "../../"
 
@@ -66,7 +48,7 @@ module "cloud_sso_user" {
   #alicloud_cloud_sso_user
   create_user = true
 
-  directory_id = module.cloud_sso_directory.directory_id
+  directory_id = local.directory_id
   users        = var.users
 
   #alicloud_cloud_sso_user_attachment
@@ -79,7 +61,7 @@ module "cloud_sso_user" {
 
 }
 
-// create a list new access configurations
+# create a list new access configurations
 module "cloud_sso_access_configuration" {
   source = "../../"
 
@@ -98,7 +80,7 @@ module "cloud_sso_access_configuration" {
   #alicloud_cloud_sso_access_configuration
   create_access_configuration = true
 
-  directory_id          = module.cloud_sso_directory.directory_id
+  directory_id          = local.directory_id
   access_configurations = var.access_configurations
 
 }

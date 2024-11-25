@@ -1,34 +1,3 @@
-#####################
-# Cloud SSO Directory
-#####################
-variable "directory_name" {
-  description = "The name of a new cloud sso directory."
-  type        = string
-  default     = "tf-testacc-directory"
-}
-
-variable "mfa_authentication_status" {
-  description = "The mfa authentication status. Valid values: Enabled or Disabled. Default to Enabled."
-  type        = string
-  default     = "Enabled"
-}
-
-variable "scim_synchronization_status" {
-  description = "The scim synchronization status. Valid values: Enabled or Disabled. Default to Disabled."
-  type        = string
-  default     = "Disabled"
-}
-
-variable "saml_identity_provider_configuration" {
-  description = "The saml identity provider configuration. See: https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/cloud_sso_directory#saml_identity_provider_configuration"
-  type        = list(map(string))
-  default = [
-    {
-      sso_status                = "Disabled"
-      encoded_metadata_document = ""
-    }
-  ]
-}
 
 #####################
 # Cloud SSO Group
