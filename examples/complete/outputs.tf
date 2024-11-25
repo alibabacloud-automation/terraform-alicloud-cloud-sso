@@ -1,6 +1,6 @@
 output "directory_id" {
   description = "The id of cloud sso directory."
-  value       = module.cloud_sso_directory.directory_id
+  value       = local.directory_id
 }
 
 output "group_id" {

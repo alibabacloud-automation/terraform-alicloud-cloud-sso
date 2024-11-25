@@ -25,5 +25,5 @@ output "user_resource_ids" {
 
 output "access_configuration_ids" {
   description = "List of ids of cloud sso access configuration."
-  value       = alicloud_cloud_sso_access_configuration.this.*.access_configuration_id
+  value       = alicloud_cloud_sso_access_configuration.this[*].access_configuration_id
 }

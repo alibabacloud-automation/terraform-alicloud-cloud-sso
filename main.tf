@@ -26,7 +26,7 @@ resource "alicloud_cloud_sso_group" "this" {
 resource "alicloud_cloud_sso_user" "this" {
   count        = var.create_user ? length(var.users) : 0
   directory_id = local.this_directory_id
-  user_name    = lookup(var.users[count.index], "user_name", )
+  user_name    = var.users[count.index]["user_name"]
   description  = lookup(var.users[count.index], "description", null)
   display_name = lookup(var.users[count.index], "display_name", null)
   email        = lookup(var.users[count.index], "email", null)
@@ -47,17 +47,17 @@ resource "alicloud_cloud_sso_user_attachment" "this" {
 resource "alicloud_cloud_sso_access_configuration" "this" {
   count                     = var.create_access_configuration ? length(var.access_configurations) : 0
   directory_id              = local.this_directory_id
-  access_configuration_name = lookup(var.access_configurations[count.index], "access_configuration_name", )
-  description               = lookup(var.access_configurations[count.index], "description", )
+  access_configuration_name = var.access_configurations[count.index]["access_configuration_name"]
+  description               = var.access_configurations[count.index]["description"]
   dynamic "permission_policies" {
-    for_each = lookup(var.access_configurations[count.index], "permission_policies", )
+    for_each = var.access_configurations[count.index]["permission_policies"]
     content {
       permission_policy_document = permission_policies.value.permission_policy_document
       permission_policy_type     = lookup(permission_policies.value, "permission_policy_type", "Inline")
       permission_policy_name     = permission_policies.value.permission_policy_name
     }
   }
-  relay_state                      = lookup(var.access_configurations[count.index], "relay_state", )
-  session_duration                 = lookup(var.access_configurations[count.index], "session_duration", )
+  relay_state                      = var.access_configurations[count.index]["relay_state"]
+  session_duration                 = var.access_configurations[count.index]["session_duration"]
   force_remove_permission_policies = lookup(var.access_configurations[count.index], "force_remove_permission_policies", true)
 }
